@@ -1,0 +1,398 @@
+<!DOCTYPE html><html lang="zh-CN" id="theme-light-mode"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author" content="快乐猪"><title>MySQL自测题目 · 快乐猪的博客</title><meta name="description" content="整理了一些 SQL 语法的自测题目，包括基础的 ddl 操作，以及分组统计、递归、窗口函数等进阶操作。某些语法可能 MySQL 不支持。
+
+
+MySQL 常见语法自测题目新建库和表
+新建数据库 mydb（可选）
+
+查看数据库版本、时区、字符集等，了解如何修改时区、字符集等
+
+给出SQL：如果 cli"><meta name="keywords" content="Blog,博客,Hexo"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="shortcut icon" type="image/x-icon" href="/images/favicon.webp"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/blog_basic.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/insight.css"><link rel="stylesheet" href="/css/search.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><script src="/js/jquery.js"></script><meta name="generator" content="Hexo 7.0.0"></head><body><div class="page-top animated fadeInDown"><div class="nav"><li><span>快乐猪的博客 </span></li><li> <a href="/">首页</a></li><li> <a href="/categories">分类</a></li><li> <a href="/archives">归档</a></li><li> <a href="/tags">标签</a></li><li> <a href="/about">关于</a></li><li> <a href="/links">友链</a></li></div><div class="information"><div class="nav_right_btn"><li><a class="fa fa-chevron-left" onclick="window.history.go(-1)"> </a></li><li><a class="fa fa-search" onclick="openWindow();"></a></li><li><a class="fa fa-sun-o" onclick="darkLightToggle();"></a></li><li><a class="fa fa-envelope-open-o" href="mailto:url_for(theme.rightbtn.mailAddress)"></a></li></div><div class="avatar"></div></div></div><!-- include sidebar--><div class="main"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post animated fadeInDown"><div class="post-title"><h3><a>MySQL自测题目</a></h3></div><div class="post-content"><p><p>整理了一些 SQL 语法的自测题目，包括基础的 ddl 操作，以及分组统计、递归、窗口函数等进阶操作。某些语法可能 MySQL 不支持。</p>
+<span id="more"></span>
+
+<h1 id="MySQL-常见语法自测题目"><a href="#MySQL-常见语法自测题目" class="headerlink" title="MySQL 常见语法自测题目"></a>MySQL 常见语法自测题目</h1><h2 id="新建库和表"><a href="#新建库和表" class="headerlink" title="新建库和表"></a>新建库和表</h2><ol>
+<li><p>新建数据库 mydb（可选）</p>
+</li>
+<li><p>查看数据库版本、时区、字符集等，了解如何修改时区、字符集等</p>
+</li>
+<li><p>给出SQL：如果 client 表存在则删除该表</p>
+</li>
+<li><p>新建客户信息表 client，包含以下字段并给对应字段设置相应长度，并设置存储引擎为 InnoDB，字符集为 utf8mb4</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>字段类型</th>
+<th>注释</th>
+<th>默认值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>varchar</td>
+<td>id</td>
+<td></td>
+</tr>
+<tr>
+<td>client_no</td>
+<td>varchar</td>
+<td>客户号</td>
+<td></td>
+</tr>
+<tr>
+<td>client_name</td>
+<td>varchar</td>
+<td>客户姓名</td>
+<td></td>
+</tr>
+<tr>
+<td>sex</td>
+<td>char</td>
+<td>性别(F:男性, M:女性, U:保密)</td>
+<td></td>
+</tr>
+<tr>
+<td>birthday</td>
+<td>date</td>
+<td>出生日期</td>
+<td></td>
+</tr>
+<tr>
+<td>is_validate</td>
+<td>char</td>
+<td>有效标识(Y:有效,N:无效)</td>
+<td></td>
+</tr>
+<tr>
+<td>note</td>
+<td>text</td>
+<td>其他说明</td>
+<td></td>
+</tr>
+<tr>
+<td>stand_by</td>
+<td>text</td>
+<td>预留备用字段</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>新建保单信息表 pol，包含以下字段并给对应字段设置相应长度，并设置存储引擎为 InnoDB，字符集为 utf8mb4</p>
+<table>
+<thead>
+<tr>
+<th>字段名</th>
+<th>字段类型</th>
+<th>注释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>id</td>
+<td>varchar</td>
+<td>id</td>
+</tr>
+<tr>
+<td>pol_no</td>
+<td>varchar</td>
+<td>保单号</td>
+</tr>
+<tr>
+<td>client_no</td>
+<td>int</td>
+<td>客户号</td>
+</tr>
+<tr>
+<td>app_date</td>
+<td>datetime</td>
+<td>投保时间</td>
+</tr>
+<tr>
+<td>payment_period</td>
+<td>char</td>
+<td>缴费周期(M:月缴,Y:年缴,O:一次交清)</td>
+</tr>
+<tr>
+<td>payment_amount</td>
+<td>decimal</td>
+<td>期缴保费</td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h2 id="新建用户、修改用户密码、表权限控制等"><a href="#新建用户、修改用户密码、表权限控制等" class="headerlink" title="新建用户、修改用户密码、表权限控制等"></a>新建用户、修改用户密码、表权限控制等</h2><p>略，自行了解。</p>
+<h2 id="常见数据库操作（DDL）"><a href="#常见数据库操作（DDL）" class="headerlink" title="常见数据库操作（DDL）"></a>常见数据库操作（DDL）</h2><ol>
+<li>按照建表规范，给 client 表和 pol 表的表明增加统一前缀</li>
+<li>按照建表规范，给 client 表和 pol 表增加以下4列<ul>
+<li>created_time 数据创建时间，字段类型时间戳，默认值为数据插入表中的时间</li>
+<li>created_by 数据创建人，默认值为 “unknown”</li>
+<li>updated_time 数据更新时间，字段类型为时间戳，默认为当前时间，每次更新数据时要自动更新该字段为当前时间</li>
+<li>updated_by 数据更新人，默认值为 “unknown”</li>
+</ul>
+</li>
+<li>在 client 表 birthday 字段后新增手机号字段 phone_number</li>
+<li>修改 pol 表的 client_no 字段类型，与 client 表中的字段类型保持一致</li>
+<li>将两个表的 id 字段修改为 int 自增，并设置为主键</li>
+<li>给 client 表的 client_no 字段增加唯一键约束，给 pol 表的 pol_no 字段增加唯一键约束</li>
+<li>给 client 表的 client_name 字段添加索引，给 pol 表的 client_no 字段添加索引，索引名称以 idx_表名_字段名命名</li>
+<li>删除 client 表的 stand_by 字段</li>
+</ol>
+<h2 id="常见数据操作（DML）"><a href="#常见数据操作（DML）" class="headerlink" title="常见数据操作（DML）"></a>常见数据操作（DML）</h2><ol>
+<li><p>使用 truncate 命令清空 client 表和 pol 表，了解 truncate 和 delete 命令的区别</p>
+</li>
+<li><p>向 client 表中写入如下数据</p>
+<table>
+<thead>
+<tr>
+<th>客户号</th>
+<th>客户姓名</th>
+<th>性别</th>
+<th>出生日期</th>
+<th>是否有效</th>
+<th>其他说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>C01</td>
+<td>丁一</td>
+<td>F</td>
+<td>1990-01-19</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>C02</td>
+<td>王二</td>
+<td>M</td>
+<td>2002-11-28</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>C03</td>
+<td>王三</td>
+<td>F</td>
+<td>1976-09-15</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>C04</td>
+<td>李四</td>
+<td>F</td>
+<td>1999-04-02</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>C05</td>
+<td>李五</td>
+<td>M</td>
+<td>2004-08-10</td>
+<td>Y</td>
+<td></td>
+</tr>
+<tr>
+<td>C06</td>
+<td>老六</td>
+<td>M</td>
+<td>1980-09-09</td>
+<td>Y</td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>向 pol 表中写入以下数据</p>
+<table>
+<thead>
+<tr>
+<th>保单号</th>
+<th>客户号</th>
+<th>投保日期</th>
+<th>缴费频次</th>
+<th>期缴保费</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P001</td>
+<td>C02</td>
+<td>2005-01-01</td>
+<td>Y</td>
+<td>100.00</td>
+</tr>
+<tr>
+<td>P002</td>
+<td>C05</td>
+<td>2020-09-10</td>
+<td>M</td>
+<td>200.00</td>
+</tr>
+<tr>
+<td>P003</td>
+<td>C01</td>
+<td>1999-08-10</td>
+<td>Y</td>
+<td>300.00</td>
+</tr>
+<tr>
+<td>P004</td>
+<td>C02</td>
+<td>2021-08-18</td>
+<td>O</td>
+<td>400.00</td>
+</tr>
+<tr>
+<td>P005</td>
+<td>C04</td>
+<td>2008-03-08</td>
+<td>M</td>
+<td>500.00</td>
+</tr>
+<tr>
+<td>P006</td>
+<td>C04</td>
+<td>2020-05-02</td>
+<td>M</td>
+<td>600.00</td>
+</tr>
+<tr>
+<td>P007</td>
+<td>C05</td>
+<td>2023-01-29</td>
+<td>M</td>
+<td>700.00</td>
+</tr>
+<tr>
+<td>P008</td>
+<td>C03</td>
+<td>1990-06-18</td>
+<td>M</td>
+<td>800.00</td>
+</tr>
+<tr>
+<td>P009</td>
+<td>C02</td>
+<td>2010-01-01</td>
+<td>Y</td>
+<td>900.00</td>
+</tr>
+<tr>
+<td>P010</td>
+<td>C02</td>
+<td>2018-11-01</td>
+<td>M</td>
+<td>1000.00</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>将不存在保单的客户状态更新为失效，其他说明更新为：无保单</p>
+</li>
+<li><p>删除失效客户</p>
+</li>
+</ol>
+<h2 id="常见分组统计"><a href="#常见分组统计" class="headerlink" title="常见分组统计"></a>常见分组统计</h2><ol>
+<li><p>查出姓“王”的客户</p>
+</li>
+<li><p>查出名字中包含“李”字的客户</p>
+</li>
+<li><p>查出名字以“一”结尾的客户</p>
+</li>
+<li><p>以姓名第一个字为姓氏，查出每个姓氏对应的客户数量</p>
+</li>
+<li><p>查询年龄在30以内的客户并按出生日期倒序排序</p>
+</li>
+<li><p>在一个SQL中查出每个性别对应的客户群体的人数、最小年龄、最大年龄、平均年龄。</p>
+</li>
+<li><p>出生日期在1990年前的客户定义为“客户群1”，1990年-2000年之间的定义为“客户群2”，2000年以后的定义为“客户群3”，查出各个客户群的客户数量，展示字段如下：</p>
+<table>
+<thead>
+<tr>
+<th>客户群名称</th>
+<th>客户数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>查出所有客户名下满足以下条件的保单信息：</p>
+<ol>
+<li>投保日期在2000年以后且缴费频次为月缴</li>
+<li>投保日期在2000年以前且缴费频次为年缴</li>
+<li>期缴保费在 300 元以上</li>
+</ol>
+<p> 展示以下字段：</p>
+<table>
+<thead>
+<tr>
+<th>客户号</th>
+<th>客户姓名</th>
+<th>保单号</th>
+<th>投保日期</th>
+<th>缴费频次</th>
+<th>期缴保费</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p> 缴费频次需展示为对应的注释，投保日期展示格式 yyyy年M月d日</p>
+</li>
+<li><p>查出缴费频次为月缴的保单数量</p>
+</li>
+<li><p>查出8年前投保过保单的客户数量</p>
+</li>
+<li><p>查出投保过3个及3个以上保单的客户</p>
+</li>
+<li><p>查出每个客户每个保单至今的缴费总额</p>
+</li>
+<li><p>查出每个客户每年投保的前两个保单，并根据客户号升序、投保日期降序排序</p>
+</li>
+<li><p>了解 MySQL 数据类型转换（字符串转数字、字符串转日期等）</p>
+</li>
+</ol>
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>创建视图 vw_vip_client，视图中的客户信息为投保过3个及3个以上保单的客户，字段如下：</p>
+<table>
+<thead>
+<tr>
+<th>客户号</th>
+<th>客户姓名</th>
+<th>性别</th>
+<th>出生日期</th>
+<th>投保的保单数量</th>
+</tr>
+</thead>
+<tbody><tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<p>了解视图的原理、性能等。</p>
+<h2 id="常用函数"><a href="#常用函数" class="headerlink" title="常用函数"></a>常用函数</h2><ul>
+<li>字符串拼接</li>
+<li>字符串大小写转换</li>
+<li>字符串截取</li>
+<li>数学计算</li>
+<li>数据类型转换</li>
+<li>去除空白字符</li>
+<li>日期计算</li>
+<li>日期格式化</li>
+</ul>
+<h2 id="其他进阶主题"><a href="#其他进阶主题" class="headerlink" title="其他进阶主题"></a>其他进阶主题</h2><ol>
+<li>递归查询（常用且实用）</li>
+<li>正则表达式</li>
+<li>数据备份及恢复</li>
+<li>SQL 注入及防注入</li>
+<li>分析 SQL 执行计划</li>
+<li>常见的 SQL 性能优化</li>
+</ol>
+</p></div><div class="post-footer"><div class="meta"><div class="info"><i class="fa fa-sun-o"></i><span class="date">2024-01-13</span><a class="tag" href="/categories/数据库/" title="数据库">数据库 </a><i class="fa fa-tag"></i><a class="tag" href="/tags/数据库/" title="数据库">数据库 </a><span class="leancloud_visitors"></span><span>大约1450个字, 4分钟50秒读完</span></div></div></div></div><div class="share"><div class="evernote"><a class="fa fa-bookmark" href="" onclick="javascript:join_favorite()" ref="sidebar"></a></div><div class="weibo"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></div><div class="twitter"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/intent/tweet?text=%E5%88%86%E4%BA%AB%E6%96%87%E7%AB%A0%EF%BC%9A%0A%0A%E5%BF%AB%E4%B9%90%E7%8C%AA%E7%9A%84%E5%8D%9A%E5%AE%A2%20%C2%B7%20MySQL%E8%87%AA%E6%B5%8B%E9%A2%98%E7%9B%AE%0Ahttp://example.com/2024/01/13/MySQL%E8%87%AA%E6%B5%8B%E9%A2%98%E7%9B%AE/%0A"></a></div></div><div class="pagination"><ul class="clearfix"></ul></div><script src="/js/visitors.js"></script></div></div></div></div><div class="footer"><div class="footer"><div class="p"> <span>  </span><!-- i.fa.fa-star--><span>©️2024 快乐猪</span></div><div class="by_farbox"><span>❤️ Powered by </span><a href="https://hexo.io/zh-cn/" target="_blank">Hexo </a><span> & </span><a href="https://github.com/Lhcfl/hexo-theme-anatolo" target="_blank">Anatolo </a></div><div class="beian"></div></div></div><script src="/js/darkLightToggle.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/add-bookmark.js"></script><script>(function(window){var INSIGHT_CONFIG={TRANSLATION:{POSTS:"文章",PAGES:"页面",CATEGORIES:"分类",TAGS:"标签",UNTITLED:"(无标题)",},CONTENT_URL:"/content.json",};window.INSIGHT_CONFIG=INSIGHT_CONFIG})(window);</script><script src="/js/insight.js" defer></script><div class="searchbox ins-search"><div class="searchbox-container ins-search-container"><div class="searchbox-input-wrapper"><input class="searchbox-input ins-search-input" type="text" placeholder="想要查找什么..."><span class="searchbox-close"><a class="fa fa-times-circle" onclick="closeWindow();"></a></span></div><div class="searchbox-result-wrapper ins-section-wrapper"><div class="ins-section-container"><p>Seraching...</p></div></div></div></div></body></html>
