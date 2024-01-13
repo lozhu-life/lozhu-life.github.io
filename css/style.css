@@ -662,6 +662,25 @@ a.btn {
 .in-page.toc-container {
   display: none;
 }
+/* 表格样式 */
+table {
+  border-collapse: collapse;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+}
+table th {
+  padding: 4px 6px;
+  border-left: 1px solid #000;
+  border-top: 1px solid #000;
+}
+table tr {
+  min-heigth: 20px;
+}
+table td {
+  padding: 3px 6px;
+  border-left: 1px solid #000;
+  border-top: 1px solid #000;
+}
 @media screen and (max-width: 960px) {
   .sidebar {
     width: 100%;
@@ -687,6 +706,12 @@ a.btn {
     overflow-x: scroll;
     overflow-y: hidden;
   }
+  .page-top .nav {
+    padding: 18px 0 18px 10px;
+  }
+  .page-top .nav li:first-child {
+    display: none;
+  }
   .page-top .information {
     background-color: #fff;
     position: absolute;
@@ -706,7 +731,8 @@ a.btn {
     line-height: 1.6;
   }
   .content {
-    margin-top: 0px;
+/* margin-top: 0px; */
+    margin-left: 10px;
     top: auto;
     width: 100%;
     z-index: 2;
